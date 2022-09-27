@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body{
+            background-image:url("https://thumbs.gfycat.com/DeadVeneratedGerenuk-size_restricted.gif");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #title{
+            text-align: center;
+            font-size: 40px;
+            margin-top: 2px;
+            margin-bottom:10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        #top{
+            width: 20%;
+            margin: auto;
+            display: grid;
+            background-color:skyblue;
+            padding: 20px;
+            border-radius: 10px;
+            display: grid;
+            align-items: center;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+        #top>h2{
+            text-align: center;
+            margin-top: -2px;
+            margin-bottom:10px;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 30px;
+        }
+        #input{
+            height:35px;
+            width: 80%;
+            margin: auto;
+            border-radius: 4px;
+            background-color: rgb(26, 25, 25);
+            color: white;
+            font-size: 20px;
+            text-align: center;
+        }
+        #button{
+            height:40px;
+            width: 50%;
+            margin: auto;
+            border-radius: 4px;
+            background-color: orange;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 18px;
+        }
+       
+
+
+/* -------------------------------------bottom part------------------------------- */
+
+        #mainDiv{
+            display: flex;
+            margin-top: 15px;
+        
+        }
+        #gmap_canvas{
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            width: 44%;
+            height: 440px;
+            border: 10px solid skyblue;
+            border-radius: 10px;
+            margin-left: 40px;
+            display: none;
+        }
+
+        #append{
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            width: 46%;
+            height: 440px;
+            margin-left: 40px;
+            border-radius: 10px;
+            background-color: skyblue;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            justify-content: center;
+            align-items: center;
+            gap:5px;
+            padding: 10px;
+            justify-items: center;
+            display: none;
+            
+        }
+        #append>div{
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 10px;
+            background-color: rgb(219, 211, 211);
+            margin-bottom: 3px;
+            margin-top: 1px;
+            width: 100%;
+            height: 95%;
+        }
+        #append>div>h2{
+            text-align: center;
+            margin-top: 2px;
+        }
+        #append>div>img{
+            width: 80%;
+            margin: auto;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            height: 60px;
+            
+        }
+        #minMax{
+            display: flex;
+            gap: 7px;
+            margin-bottom: 2px;
+        }
+        #minMax>p{
+            margin-left: 10px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        #append>#details{
+            width: 100%;
+            height: 95%;
+            text-align: center;
+            background-color:rgba(255, 149, 0, 0.856);
+            border-radius: 10px;
+        }
+        #details>h1{
+           margin-top: 5px;
+           margin-bottom: 1px;
+        }
+        #details>h2{
+           font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        #details>h4{
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+
+
+        @media all and (min-width:200px) and (max-width:740px){
+            body{
+            background-image:url("https://thumbs.gfycat.com/DeadVeneratedGerenuk-size_restricted.gif");
+            background-repeat: repeat;
+            background-size: cover;
+        }
+        #title{
+            font-size: 30px;
+            margin-top: 2px;
+            margin-bottom:15px;
+        }
+        #top{
+            width: 50%;
+            padding: 30px;
+        }
+        #input{
+            height:32px;
+            width: 65%;
+            font-size:17px;
+        }
+        #button{
+            height:30px;
+            width: 45%;
+            font-size: 13px;
+        }
+
+        #mainDiv{
+            display:grid;
+            gap: 20px;
+        
+        }
+        #gmap_canvas{
+            
+            width: 90%;
+            height: 340px;
+            margin: auto;
+            display: none;
+        }
+
+        #append{
+            width: 90%;
+            margin:auto;
+            height: 800px;
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            justify-content: center;
+            align-items: center;
+            gap:10px;
+            justify-items: center;
+            display: none;    
+        }
+        }
+    #location{
+        border: 3px solid black;
+        width: 50px;
+        height: 50px;
+        margin: auto;
+        margin-top: 12px;
+        border-radius: 50px;
+        margin-bottom: -2px;
+        background-color: white;
+    }
+    #locationImg{
+            width:100%;
+            height: 100%;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">7-Day Weather Forecasts</h1>
+    <div id="top">
+    <h2>Enter City</h2>
+    <input id="input" type="search" placeholder="Enter city"><br/>
+    <button id="button" onclick="searchButton()">SEARCH</button>
+    <div id="location">
+        <img onclick="getLocation()" id="locationImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9ADEx23mYUEmNqxUMVMHtAHJ8aqT_HDVRnQ&usqp=CAU" alt="">
+    </div>
+</div>
+<div id="mainDiv">
+<div id="append">
+   
+</div>
+        <iframe width="600" 
+        height="500" 
+        id="gmap_canvas" 
+        src="https://maps.google.com/maps?q=2880%20Broadway,%20New%20York&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+        frameborder="0" 
+        scrolling="no" 
+        marginheight="0" 
+        marginwidth="0">
+    </iframe>
+</div>
+</body>
+</html>
+<script src="./main.js"></script>
